@@ -1,10 +1,10 @@
 import User from '../models/User.mjs';
 
-const signup = async ({ username, email, password }) => {
+const signup = async ({ username, email, password, role }) => {
   const existingUser = await User.findOne({ email });
   if (existingUser) throw new Error('User already exists');
 
-  const user = new User({ username, email, password });
+  const user = new User({ username, email, password, role });
   await user.save();
   return { message: 'User registered successfully' };
 };
