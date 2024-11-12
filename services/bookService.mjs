@@ -1,6 +1,7 @@
 import bookLogic from '../businessLogic/bookLogic.mjs';
 
 const addBook = async (req, res) => {
+  console.log(req.body)
   try {
     const result = await bookLogic.addBook(req.body);
     res.status(201).json(result);
@@ -32,4 +33,13 @@ const getBookById = async (req, res) => {
   }
 };
 
-export default { addBook, getAllBooks, getBookById };
+const getAllBooksCount = async (req, res) => {
+  try {
+    const books = await bookLogic.getBookCounts();
+    res.status(200).json(books);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export default { addBook, getAllBooks, getBookById, getAllBooksCount };

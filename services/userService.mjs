@@ -26,5 +26,14 @@ const getAllUsers = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+const getAllUsersCount = async (req, res) => {
+  try {
+    const users = await userLogic.getDashboardCounts();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
-export default { signup, login, getAllUsers };
+
+export default { signup, login, getAllUsers, getAllUsersCount };

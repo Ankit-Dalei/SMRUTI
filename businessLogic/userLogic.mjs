@@ -6,7 +6,7 @@ const signup = async ({ username, email, password, role }) => {
 
   const user = new User({ username, email, password, role });
   await user.save();
-  return { message: 'User registered successfully' };
+  return { message: 'User registered successfully' , status: "200"};
 };
 
 const login = async ({ email, password }) => {
@@ -20,11 +20,25 @@ const login = async ({ email, password }) => {
     throw new Error('Invalid credentials');
   }
 
-  return { message: 'Login successful', userId: user };
+  return { message: 'Login successful', userId: user , status: "200" };
 };
 
 const getAllUsers = async () => {
   return await User.find({});
 };
 
-export default { signup, login, getAllUsers };
+
+const getDashboardCounts = async () => {
+  try {
+    // Count users where role is false
+    const userCount = await User.countDocuments({ role: false });
+
+    return { userCount };
+  } catch (error) {
+    console.error("Error fetching counts:", error);
+    throw error;
+  }
+};
+
+
+export default { signup, login, getAllUsers, getDashboardCounts };

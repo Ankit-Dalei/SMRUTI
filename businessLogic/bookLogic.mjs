@@ -16,4 +16,17 @@ const getBookById = async (bookId) => {
   return await Book.findOne({ bookId });
 };
 
-export default { addBook, getAllBooks, getBookById };
+const getBookCounts = async () => {
+  try {
+    // Count all books
+    const totalBooks = await Book.countDocuments();
+
+    return { totalBooks };
+  } catch (error) {
+    console.error("Error fetching book counts:", error);
+    throw error;
+  }
+};
+
+
+export default { addBook, getAllBooks, getBookById, getBookCounts };
